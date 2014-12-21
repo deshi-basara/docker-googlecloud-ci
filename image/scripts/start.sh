@@ -1,8 +1,8 @@
 #! /bin/bash
 #
-# Usage: ./start.sh [<GIT_REPO_URL>] [<APP_START_CMD] [<GIT_COMMIT>]
+# Usage:   ./start.sh [<GIT_REPO_URL>] [<APP_START_CMD] [<GIT_COMMIT>]
 #
-# Example: ./start.sh https://github.com/deshi-basara/angular-gulp-seed.git "bower install" d7b731d2fe8bde4c509c5f6ed29e7873c530b7f2
+# Example: ./start.sh https://github.com/deshi-basara/angular-gulp-seed.git "npm install" d7b731d2fe8bde4c509c5f6ed29e7873c530b7f2
 #
 # or       ./start.sh https://github.com/deshi-basara/angular-gulp-seed.git "bower install"
 #
@@ -55,15 +55,22 @@ echo
 
 ##
 #
-# 2) Pull Repo
+# 2) Pull Repo into the current folder
 #
 ##
 echo "========================================================================================"
 echo "2) Pulling Git-Repo"
 echo "========================================================================================"
 
-# clone the repo and check if the clone was successfully
-(git clone "$GIT_REPO_URL" && cd *) || {
+# clone the repo inside the current directory (git clone creates a new directory, that's why we have to
+# use a little workaround)
+(
+git init &&
+git remote add origin "$GIT_REPO_URL" &&
+git fetch &&
+git branch master origin/master &&
+git checkout master
+) || {
     echo
     echo 'START-ERROR: git clone failed'
     echo
@@ -74,7 +81,7 @@ echo "==========================================================================
 if [ ! -z "$GIT_COMMIT" ]; then
     # reset the repo back to the commit
     echo
-    (cd * && git reset --hard "$GIT_COMMIT") || {
+    git reset --hard "$GIT_COMMIT" || {
         echo
         echo 'START-ERROR: git reset failed'
         echo
@@ -85,14 +92,6 @@ fi
 
 echo
 echo
-
-# check if the repo was pulled succesfully
-#if [ "$(ls */)" ] ; then
-#    echo "$GIT_REPO_URL was pulled"
-#else
-#    echo "$GIT_REPO_URL does not exist"
-#    exit 1
-#fi
 
 
 
@@ -105,9 +104,9 @@ echo "==========================================================================
 echo "3) Upstarting the application"
 echo "========================================================================================"
 
-(cd * && ${APP_START_CMD}) || {
+${APP_START_CMD} || {
     echo
-    echo 'START-ERROR: git clone failed'
+    echo 'START-ERROR: upstart failed'
     echo
     exit 1
 }
