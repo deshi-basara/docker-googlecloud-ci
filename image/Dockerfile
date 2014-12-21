@@ -29,5 +29,5 @@ COPY    . /src
 
 
 
-# expose express port
-EXPOSE  3000
+# expose sailsjs port
+EXPOSE  1337
