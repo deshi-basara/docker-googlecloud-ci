@@ -1,11 +1,13 @@
 #! /bin/bash
 #
-# Usage:   ./start.sh [<GIT_REPO_URL>] [<APP_START_CMD] [<GIT_COMMIT>]
+# Fetches a handed git-repository and starts the containing "start.sh".
 #
-# Example: ./start.sh https://github.com/deshi-basara/angular-gulp-seed.git "npm install" d7b731d2fe8bde4c509c5f6ed29e7873c530b7f2
 #
-# or       ./start.sh https://github.com/deshi-basara/angular-gulp-seed.git "bower install"
+# Usage:   ./docker.sh [<GIT_REPO_URL>] [<GIT_COMMIT>]
 #
+# Example: ./docker.sh https://github.com/deshi-basara/glftv-video-processor-web.git d7b731d2fe8bde4c509c5f6ed29e7873c530b7f2
+#
+# or       ./docker.sh https://github.com/deshi-basara/glftv-video-processor-web.git "bower install"
 #
 
 
@@ -14,7 +16,7 @@
 GIT_REPO_URL="$1"
 GIT_COMMIT="$3"
 
-APP_START_CMD="$2"
+APP_START_CMD="docker.sh"
 
 
 
@@ -104,7 +106,7 @@ echo "==========================================================================
 echo "3) Upstarting the application"
 echo "========================================================================================"
 
-${APP_START_CMD} || {
+chmod +x "$APP_START_CMD" && ./"$APP_START_CMD" || {
     echo
     echo 'START-ERROR: upstart failed'
     echo
