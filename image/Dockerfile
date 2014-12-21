@@ -30,4 +30,4 @@ COPY    . /src
 
 
 # expose express port
-EXPOSE  3000 # sails
+EXPOSE  3000
