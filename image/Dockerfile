@@ -7,14 +7,20 @@
 # Fetch the latest ubuntu lts
 FROM    ubuntu:14.04
 
-# setup missing programms
-RUN     sudo apt-get install -y curl git
+
+
+# setup global dependencies programms
+RUN     sudo apt-get install -y curl git screen software-properties-common
+# setup the redis-database server repository
+RUN     sudo add-apt-repository -y ppa:chris-lea/redis-server
+
+
 # setup curl and the nodejs repository
 RUN     curl -sL https://deb.nodesource.com/setup | sudo bash -
-# install nodejs & its dependency the node package manager
-RUN     sudo apt-get update && sudo apt-get install -y nodejs
-# install the latest express version 4.10.6
-RUN     sudo npm install -g express@4.10.6
+# install nodejs, its dependency the node package manager and the redis-server
+RUN     sudo apt-get update && sudo apt-get install -y nodejs redis-server
+# install the sailsjs version 0.10.5
+RUN     sudo npm install -g sails@0.10.5
 
 
 
@@ -24,4 +30,4 @@ COPY    . /src
 
 
 # expose express port
-EXPOSE  3000
+EXPOSE  3000 # sails
