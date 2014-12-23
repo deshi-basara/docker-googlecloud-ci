@@ -5,10 +5,10 @@
 #           sudo docker run -i -t "<username>/gdocker-nodejs" /bin/bash
 
 # Fetch the latest ubuntu lts
-FROM    ubuntu:14.04
+FROM    ubuntu:14.04.1
 
 # setup global dependencies
-RUN     sudo apt-get install -y build-essential python curl git screen software-properties-common
+RUN     sudo apt-get update && sudo apt-get install -y build-essential python curl git screen software-properties-common
 # setup the redis-database server repository
 RUN     sudo add-apt-repository -y ppa:chris-lea/redis-server
 
