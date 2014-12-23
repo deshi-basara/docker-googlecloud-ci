@@ -13,15 +13,14 @@
 
 ####### Constants
 #GIT_REPO_NAME="angular-gulp-seed"
-GIT_REPO_URL="$1"
-GIT_COMMIT="$3"
+#GIT_REPO_URL="$1"
+#GIT_COMMIT="$3"
+#APP_START_CMD="start.sh"
 
-APP_START_CMD="start.sh"
-
-
-
-
-
+# get value from the google-meta-data and not from cli
+GIT_REPO_URL=$(curl http://metadata/computeMetadata/v1/instance/attributes/url -H "Metadata-Flavor: Google")
+GIT_COMMIT=$(curl http://metadata/computeMetadata/v1/instance/attributes/commit -H "Metadata-Flavor: Google")
+APP_START_CMD=$(curl http://metadata/computeMetadata/v1/instance/attributes/start -H "Metadata-Flavor: Google")
 
 ####### Main
 
@@ -106,7 +105,7 @@ echo "==========================================================================
 echo "3) Upstarting the application"
 echo "========================================================================================"
 
-chmod +x "$APP_START_CMD" && ./"$APP_START_CMD" || {
+(chmod +x "$APP_START_CMD" && sh "$APP_START_CMD") || {
     echo
     echo 'START-ERROR: upstart failed'
     echo
