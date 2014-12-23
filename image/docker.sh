@@ -16,7 +16,7 @@
 GIT_REPO_URL="$1"
 GIT_COMMIT="$3"
 
-APP_START_CMD="docker.sh"
+APP_START_CMD="start.sh"
 
 
 
