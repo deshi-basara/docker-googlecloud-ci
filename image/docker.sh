@@ -13,14 +13,14 @@
 
 ####### Constants
 #GIT_REPO_NAME="angular-gulp-seed"
-#GIT_REPO_URL="$1"
+GIT_REPO_URL="https://github.com/deshi-basara/glftv-video-processor-web.git"
 #GIT_COMMIT="$3"
-#APP_START_CMD="start.sh"
+APP_START_CMD="start.sh"
 
 # get value from the google-meta-data and not from cli
-GIT_REPO_URL=$(curl http://metadata/computeMetadata/v1/instance/attributes/url -H "Metadata-Flavor: Google")
-GIT_COMMIT=$(curl http://metadata/computeMetadata/v1/instance/attributes/commit -H "Metadata-Flavor: Google")
-APP_START_CMD=$(curl http://metadata/computeMetadata/v1/instance/attributes/start -H "Metadata-Flavor: Google")
+#GIT_REPO_URL=$(curl http://metadata/computeMetadata/v1/instance/attributes/url -H "Metadata-Flavor: Google")
+#GIT_COMMIT=$(curl http://metadata/computeMetadata/v1/instance/attributes/commit -H "Metadata-Flavor: Google")
+#APP_START_CMD=$(curl http://metadata/computeMetadata/v1/instance/attributes/start -H "Metadata-Flavor: Google")
 
 ####### Main
 
@@ -30,7 +30,7 @@ APP_START_CMD=$(curl http://metadata/computeMetadata/v1/instance/attributes/star
 #
 ##
 echo "========================================================================================"
-echo "1) Validating Input"
+echo "4) Validating Input"
 echo "========================================================================================"
 
 # Does the repo exist?
@@ -60,7 +60,7 @@ echo
 #
 ##
 echo "========================================================================================"
-echo "2) Pulling Git-Repo"
+echo "5) Pulling Git-Repo"
 echo "========================================================================================"
 
 # clone the repo inside the current directory (git clone creates a new directory, that's why we have to
@@ -102,10 +102,10 @@ echo
 #
 ##
 echo "========================================================================================"
-echo "3) Upstarting the application"
+echo "6) Upstarting the application"
 echo "========================================================================================"
 
-(chmod +x "$APP_START_CMD" && sh "$APP_START_CMD") || {
+(chmod +x "$APP_START_CMD" && /bin/bash "/src/$APP_START_CMD") || {
     echo
     echo 'START-ERROR: upstart failed'
     echo

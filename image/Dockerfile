@@ -19,7 +19,7 @@ RUN     sudo apt-get update && sudo apt-get install -y nodejs redis-server
 # install the sailsjs version 0.10.5
 RUN     sudo npm install -g sails@0.10.5
 
-# bunde app sources
+# bundle app sources
 COPY    . /src
 
 # expose sailsjs port
