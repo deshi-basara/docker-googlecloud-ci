@@ -152,7 +152,7 @@ def deploy(config, new_api_version, commit):
     # start the vm
     deploy_process = subprocess.Popen(deploy_cmd, stdout=subprocess.PIPE)
     click.echo("======================================================================")
-    click.echo("1/3 Deploying Container VM on Google Cloud Platform ...")
+    click.echo("1/5 Deploying Container VM on Google Cloud Platform ...")
     click.echo("======================================================================")
     # block io until the vm is ready & print output
     while deploy_process.poll() is None:
@@ -161,7 +161,7 @@ def deploy(config, new_api_version, commit):
 
     # start our docker image on the vm
     click.echo("======================================================================")
-    click.echo("2/3 Deploying Docker Image inside Container VM")
+    click.echo("2/5 Deploying Docker Image inside Container VM ...")
     click.echo("======================================================================")
 
     docker_cmd = ["gcloud", "compute", "ssh", "--zone", "europe-west1-b",

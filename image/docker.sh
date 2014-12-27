@@ -30,7 +30,7 @@ APP_START_CMD="start.sh"
 #
 ##
 echo "========================================================================================"
-echo "4) Validating Input"
+echo "3/5 Validating Input"
 echo "========================================================================================"
 
 # Does the repo exist?
@@ -60,7 +60,7 @@ echo
 #
 ##
 echo "========================================================================================"
-echo "5) Pulling Git-Repo"
+echo "4/5 Pulling Git-Repo"
 echo "========================================================================================"
 
 # clone the repo inside the current directory (git clone creates a new directory, that's why we have to
@@ -102,7 +102,7 @@ echo
 #
 ##
 echo "========================================================================================"
-echo "6) Upstarting the application"
+echo "5/5 Upstarting the application"
 echo "========================================================================================"
 
 (chmod +x "$APP_START_CMD" && /bin/bash "/src/$APP_START_CMD") || {
