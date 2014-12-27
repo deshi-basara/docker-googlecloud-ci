@@ -32,7 +32,8 @@ Install gdocker in your virtual environment
 
 Get your Google Cloud Platform SDK running and create a new project inside Google Developer Console
 ```Shell
-# If you have more than one Python installation on your system & the default one is not 2.7
+# If you have more than one Python installation on your system &
+# the default one is not 2.7
 $ echo "export CLOUDSDK_PYTHON=/usr/bin/python2.7" >> ~/.bashrc && source ~/.bashrc
 
 # Authenticate and generate your Google Cloud SSH keys
@@ -66,20 +67,17 @@ Initialise your gdocker-config inside your project folder
 Create your start-script inside your repository and push it. (Your start-script will later be used to
 start your application inside your docker-container).
 ```Shell
-#
 [my-git-project]$   echo "node app.js" >> start.sh
 ```
 
 Deploy your project on the Google Compute Engine
 ```Shell
-#
 [my-git-project]$   gdocker deploy NEW_API_VERSION \
 		                --commit "62b7281[...]edca1ba" # if you want to deploy a certain commit
 ```
 
 If everything went right you should see
 ```Shell
-#
 [my-git-project]$   gdocker deploy 0.0.2
 
 ======================================================================
