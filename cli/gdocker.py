@@ -50,7 +50,7 @@ class Config(object):
         self.deploy_cmd.append("" + self.config.get("gcloud", "project_id"))
         self.deploy_cmd.append("instances")
         self.deploy_cmd.append("create")
-        self.deploy_cmd.append("docker-test-1")
+        self.deploy_cmd.append("gdocker-project")
         self.deploy_cmd.append("--zone")
         self.deploy_cmd.append("" + self.config.get("gcloud", "zone"))
         self.deploy_cmd.append("--machine-type")
@@ -157,7 +157,7 @@ def deploy(config, new_api_version, commit):
     # block io until the vm is ready & print output
     while deploy_process.poll() is None:
         new_line = deploy_process.stdout.readline()
-        print new_line
+        click.echo(new_line)
 
     # start our docker image on the vm
     click.echo("======================================================================")
@@ -170,10 +170,4 @@ def deploy(config, new_api_version, commit):
     # block io until the container is ready & print output
     while docker_process.poll() is None:
         new_line = docker_process.stdout.readline()
-        print new_line
-
-    click.echo("======================================================================")
-    click.echo("Success ... Application was deployed!")
-    click.echo("======================================================================")
-
-
+        click.echo(new_line)
