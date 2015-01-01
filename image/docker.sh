@@ -13,14 +13,16 @@
 
 ####### Constants
 #GIT_REPO_NAME="angular-gulp-seed"
-GIT_REPO_URL="https://github.com/deshi-basara/glftv-video-processor-web.git"
+#GIT_REPO_URL="https://github.com/deshi-basara/glftv-video-processor-web.git"
 #GIT_COMMIT="$3"
-APP_START_CMD="start.sh"
+#APP_START_CMD="start.sh"
 
 # get value from the google-meta-data and not from cli
-#GIT_REPO_URL=$(curl http://metadata/computeMetadata/v1/instance/attributes/url -H "Metadata-Flavor: Google")
-#GIT_COMMIT=$(curl http://metadata/computeMetadata/v1/instance/attributes/commit -H "Metadata-Flavor: Google")
-#APP_START_CMD=$(curl http://metadata/computeMetadata/v1/instance/attributes/start -H "Metadata-Flavor: Google")
+GIT_REPO_URL=$(curl http://metadata/computeMetadata/v1/instance/attributes/url -H "Metadata-Flavor: Google")
+GIT_COMMIT=$(curl http://metadata/computeMetadata/v1/instance/attributes/commit -H "Metadata-Flavor: Google")
+APP_START_CMD=$(curl http://metadata/computeMetadata/v1/instance/attributes/start -H "Metadata-Flavor: Google")
+
+echo $GIT_COMMIT
 
 ####### Main
 
@@ -114,3 +116,14 @@ echo "==========================================================================
 
 echo
 echo
+
+
+
+##
+#
+# 4) Give success message
+#
+##
+echo "========================================================================================"
+echo "Success ... Application was deployed to IP: $(curl "http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip" -H "Metadata-Flavor: Google")"
+echo "========================================================================================"
