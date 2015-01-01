@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name="gdocker-ci",
@@ -16,5 +16,3 @@ setup(
         gdocker=gdocker:cli
     '''
 )
-
-#gcloud compute --project "utopian-pen-801" instances create "docker-test-1" --zone "europe-west1-b" --machine-type "f1-micro" --network "default" --metadata "start-script=docker.sh" --image container-vm
