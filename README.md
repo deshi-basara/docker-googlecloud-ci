@@ -1,7 +1,7 @@
 docker-googlecloud-ci
 =====================
 
-Cli prototype for using continuous integration with Docker and Google Container Engine
+Basic Cli-prototype for using continuous integration with Docker and Google Compute Engine.
 
 
 ================
@@ -130,5 +130,4 @@ Success ... Application was deployed!
 ========
 ### Todo
 
-* Project Version incrementation
 * Stop a running instance and deploy on the same address
