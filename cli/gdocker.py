@@ -3,6 +3,7 @@ from os import path
 import sys
 import subprocess
 import click
+import time
 
 
 class Config(object):
@@ -14,7 +15,7 @@ class Config(object):
         # parse the config file
         self.config = SafeConfigParser()
         self.name = '.gdocker.ini'
-        self.verbose = True
+        self.verbose = False
 
     def create_config(self):
         # create a new '.gdocker.ini'
@@ -89,7 +90,8 @@ class Config(object):
         docker_cmd.append("" + self.config.get("gcloud", "zone"))
         docker_cmd.append("gdocker-project")
         docker_cmd.append("--command")
-        docker_cmd.append("'sudo docker run -p " + self.config.get("gcloud", "port") + ":1337 -i -t deshibasara/gdocker-nodejs ./src/docker.sh'")
+        docker_cmd.append("sudo docker run -p " + self.config.get("gcloud", "port") +
+                          ":1337 -i -t deshibasara/gdocker-nodejs cd /src && ./docker.sh")
         return docker_cmd
 
     def build_firewall_cmd(self):
@@ -142,7 +144,7 @@ def cli(ctx):
               help="Google cloud machine type")
 @click.option('--gimage', default="container-vm",
               help="Google cloud image that will be used for deployment")
-@click.option('--gport', default="1337",
+@click.option('--gport', default="40000",
               help="Google container port that should be exposed")
 @click.argument('repository_url', required=True)
 @click.argument('google_project_id', required=True)
@@ -208,7 +210,6 @@ def deploy(config, new_api_version, commit):
         click.echo(new_line)
 
     firewall_cmd = config.build_firewall_cmd()
-    click.echo(firewall_cmd)
     firewall_process = subprocess.Popen(firewall_cmd, stdout=subprocess.PIPE)
     click.echo("======================================================================")
     click.echo("2/6 Opening firewall ports on Container VM ...")
@@ -222,9 +223,11 @@ def deploy(config, new_api_version, commit):
     click.echo("======================================================================")
     click.echo("3/6 Deploying Docker Image inside Container VM ...")
     click.echo("======================================================================")
-
     docker_cmd = config.build_docker_cmd()
     click.echo(docker_cmd)
+    # timeout execution, until ssh is ready
+    time.sleep(30)
+    # execute
     docker_process = subprocess.Popen(docker_cmd, stdout=subprocess.PIPE)
     # block io until the container is ready & print output
     while docker_process.poll() is None:
