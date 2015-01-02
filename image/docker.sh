@@ -1,21 +1,11 @@
 #! /bin/bash
 #
-# Fetches a handed git-repository and starts the containing "start.sh".
+# Fetches a handed git-repository and executes the specified "APP_START_CMD"-script.
 #
-#
-# Usage:   ./docker.sh [<GIT_REPO_URL>] [<GIT_COMMIT>]
-#
-# Example: ./docker.sh https://github.com/deshi-basara/glftv-video-processor-web.git d7b731d2fe8bde4c509c5f6ed29e7873c530b7f2
-#
-# or       ./docker.sh https://github.com/deshi-basara/glftv-video-processor-web.git "bower install"
-#
+# Usage:   ./docker.sh
 
 
 ####### Constants
-#GIT_REPO_NAME="angular-gulp-seed"
-#GIT_REPO_URL="https://github.com/deshi-basara/glftv-video-processor-web.git"
-#GIT_COMMIT="$3"
-#APP_START_CMD="start.sh"
 
 # get value from the google-meta-data and not from cli
 GIT_REPO_URL=$(curl http://metadata/computeMetadata/v1/instance/attributes/url -H "Metadata-Flavor: Google")
