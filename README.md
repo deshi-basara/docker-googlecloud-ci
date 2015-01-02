@@ -28,6 +28,10 @@ Create a new virtualenv with Python 2.7 and activate
 Install gdocker in your virtual environment
 ```Shell
 (venv)[cli]$  python setup.py install
+
+or (if you want to modify the code)
+
+(venv)[cli]$  pip install --editable . 
 ```
 
 Get your Google Cloud Platform SDK running and create a new project inside Google Developer Console
@@ -53,7 +57,7 @@ Add your dependencies in your Dockerfile or copy them as files into the 'image/'
 
 Build your image and push it into your Docker Hub repo
 ```Shell
-[image]$  sudo docker build <username>/gdocker-nodejs .
+[image]$  sudo docker build -t <username>/gdocker-nodejs .
 [image]$  sudo docker push <username>/gdocker-nodejs .
 ```
 
@@ -61,7 +65,7 @@ Initialise your gdocker-config inside your project folder
 ```Shell
 # All values are optional and will be set with default values, except the last two arguments (repo-url, project-id)
 [my-git-project]$   gdocker init --api_version "0.0.1" --start_scripts "start.sh" --gzone "europe-west1-b" \
-		                --gmachine "f1-micro" --gimage "container-vm" REPOSITORY_URL GOOGLE_PROJECT_ID
+		                --gmachine "f1-micro" --gimage "container-vm" -gport "1337" REPOSITORY_URL GOOGLE_PROJECT_ID
 ```
 
 Create your start-script inside your repository and push it. (Your start-script will later be used to
@@ -81,31 +85,37 @@ If everything went right you should see
 [my-git-project]$   gdocker deploy 0.0.2
 
 ======================================================================
-1/5 Deploying Container VM on Google Cloud Platform ...
+1/6 Deploying Container VM on Google Cloud Platform ...
 ======================================================================
 
 [...]
 
 ======================================================================
-2/5 Deploying Docker Image inside Container VM ...
+2/6 Opening firewall ports on Container VM ...
 ======================================================================
 
 [...]
 
 ======================================================================
-3/5 Validating Input
+3/6 Deploying Docker Image inside Container VM ...
 ======================================================================
 
 [...]
 
 ======================================================================
-4/5 Pulling Git-Rep
+4/6 Validating Input
 ======================================================================
 
 [...]
 
 ======================================================================
-5/5 Upstarting the application
+5/6 Pulling Git-Rep
+======================================================================
+
+[...]
+
+======================================================================
+6/6 Upstarting the application
 ======================================================================
 
 [...]
