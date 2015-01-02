@@ -3,13 +3,11 @@
 # Custom commands that start the application after fetching the repository.
 #
 
-# client & server config
-#cd client && npm install && bower install && cd ..
-cd /src/server && npm install
+# install missing server dependencies
+(cd /src/server; npm install)
 
-# run redis
+# run redis database server
 service redis-server start
 
 # run server
-#screen -d -m cd server && sails lift
-cd /src/server && sails lift --prod
+(cd /src/server; forever start app.js --prod)
