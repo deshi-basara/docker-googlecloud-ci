@@ -10,4 +10,4 @@
 service redis-server start
 
 # run server
-(cd /src/server; forever start app.js --prod)
+(forever start /src/server/app.js --prod)
