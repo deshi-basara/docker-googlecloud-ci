@@ -2,7 +2,8 @@
 # Docker bersion 1.4.1
 #
 # Usage:    sudo docker build -t "<username>/gdocker-nodejs" .
-#           sudo docker run -i -t "<username>/gdocker-nodejs" /bin/bash
+#           sudo docker run -p 1337:1337 -i -t "<username>/gdocker-nodejs" /bin/bash
+#           sudo docker push <username>/gdocker-nodejs
 
 # Fetch the latest ubuntu lts
 FROM    ubuntu:14.04.1
@@ -17,7 +18,7 @@ RUN     curl -sL https://deb.nodesource.com/setup | sudo bash -
 # install nodejs, its dependency the node package manager and the redis-server
 RUN     sudo apt-get update && sudo apt-get install -y nodejs redis-server
 # install the sailsjs version 0.10.5
-RUN     sudo npm install -g sails@0.10.5
+RUN     sudo npm install -g sails@0.10.5 forever grunt
 
 # bundle app sources
 COPY    . /src
