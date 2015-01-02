@@ -226,7 +226,7 @@ def deploy(config, new_api_version, commit):
     docker_cmd = config.build_docker_cmd()
     click.echo(docker_cmd)
     # timeout execution, until ssh is ready
-    time.sleep(30)
+    time.sleep(5)
     # execute
     docker_process = subprocess.Popen(docker_cmd, stdout=subprocess.PIPE)
     # block io until the container is ready & print output
